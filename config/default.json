@@ -1,0 +1,4 @@
+{
+  "mongoURI": "mongodb+srv://adam123:adam123@cluster0-r2vhi.mongodb.net/test?retryWrites=true&w=majority",
+  "jsToken": "secret"
+}
