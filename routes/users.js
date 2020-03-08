@@ -32,12 +32,19 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
+    // Pull name, email, and password off the request body
+    const { name, email, password } = req.body;
+
     try {
-      // Pull name, email, and password off the request body
-      const { name, email, password } = req.body;
+      // Check to see if email is free
+      let user = await User.findOne({ email });
+
+      if (user) {
+        return res.status(400).json({ msg: "User already exists" });
+      }
 
       // Create user
-      const user = new User({
+      user = new User({
         name,
         email,
         password

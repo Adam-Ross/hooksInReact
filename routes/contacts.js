@@ -70,7 +70,7 @@ router.put("/:id", auth, async (req, res) => {
 
   try {
     // Get the specific contact
-    let contact = Contact.findById(req.params.id);
+    let contact = await Contact.findById(req.params.id);
 
     // If there isn't a contact, return 404
     if (!contact) return res.status(404).json({ msg: "Contact not found..." });
@@ -90,7 +90,7 @@ router.put("/:id", auth, async (req, res) => {
     );
     res.json(contact);
   } catch (error) {
-    res.status(500).json({ msg: "server err1r..." });
+    res.status(500).json({ msg: "server error..." });
   }
 });
 
