@@ -1,6 +1,12 @@
-import React, { useState, Fragment } from "react";
-
+import React, { useState, Fragment, useContext } from "react";
+import AuthContext from "../../context/auth/authContext";
+import AlertContext from "../../context/alert/alertContext";
 const Register = () => {
+  const authContext = useContext(AuthContext);
+  const alertContext = useContext(AlertContext);
+  const { setAlert } = alertContext;
+  const { registerUser } = authContext;
+
   const [user, setUser] = useState({
     name: "",
     email: "",
@@ -8,15 +14,23 @@ const Register = () => {
     password2: ""
   });
 
+  const { name, email, password, password2 } = user;
+
   const onChange = e => {
-    setUser({ [e.target.name]: e.target.value });
+    setUser({ ...user, [e.target.name]: e.target.value });
   };
 
-  const { name, email, password, password2 } = user;
+  const onSubmit = e => {
+    e.preventDefault();
+
+    // Ultimately, we're going to want to fix the method, but for right now, I just want to console.log it out to make sure it's working
+    registerUser();
+  };
+
   return (
-    <Fragment>
+    <div className="form-container">
       <h1>Register</h1>
-      <form>
+      <form onSubmit={onSubmit}>
         <div className="form-group">
           <label htmlFor="name">Name</label>
           <input type="text" name="name" value={name} onChange={onChange} />
@@ -43,9 +57,13 @@ const Register = () => {
             onChange={onChange}
           />
         </div>
-        <input type="submit" className="btn btn-primary btn-block" />
+        <input
+          type="submit"
+          value="Register"
+          className="btn btn-primary btn-block"
+        />
       </form>
-    </Fragment>
+    </div>
   );
 };
 

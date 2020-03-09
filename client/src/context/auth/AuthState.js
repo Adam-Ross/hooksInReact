@@ -29,7 +29,9 @@ const AuthState = props => {
   // Load user
 
   // Register user
-
+  const registerUser = userData => {
+    console.log("register user is enabled...");
+  };
   // login user
 
   // logout
@@ -43,7 +45,8 @@ const AuthState = props => {
         isAuthenticated: state.isAuthenticated,
         user: state.user,
         loading: state.loading,
-        error: state.error
+        error: state.error,
+        registerUser
       }}
     >
       {props.children}
